@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="rule_company_document_multicompany" model="ir.rule">
+        <field name="name">Document : visibilité par société</field>
+        <field name="model_id" ref="model_company_document"/>
+        <field name="global">True</field>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>
