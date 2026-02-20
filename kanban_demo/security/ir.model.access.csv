@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kanban_task_user,kanban.task user,model_kanban_task,base.group_user,1,1,1,1
+access_kanban_tag_user,kanban.tag user,model_kanban_tag,base.group_user,1,1,1,1

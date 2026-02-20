@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_kanban_task_kanban" model="ir.ui.view">
+        <field name="name">kanban.task.kanban</field>
+        <field name="model">kanban.task</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" group_create="false">
+                <field name="color"/>
+                <field name="priority"/>
+                <field name="state"/>
+                <field name="progress"/>
+                <field name="user_id"/>
+                <progressbar field="state"
+                    colors='{"todo": "200", "in_progress": "warning", "done": "success", "cancelled": "danger"}'/>
+                <templates>
+                    <t t-name="card" t-att-class="record.priority.raw_value == '1' ? 'border-danger' : ''">
+                        <div class="o_kanban_color_border" t-attf-class="o_kanban_color_#{record.color.raw_value}"/>
+                        <div class="o_kanban_card_header d-flex justify-content-between">
+                            <strong><field name="name"/></strong>
+                            <field name="priority" widget="priority"/>
+                        </div>
+                        <div class="o_kanban_card_content">
+                            <field name="description" class="text-muted small"/>
+                            <div class="mt-2">
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar"
+                                         t-attf-style="width: #{record.progress.raw_value}%"
+                                         t-attf-class="bg-#{record.state.raw_value == 'done' ? 'success' : record.state.raw_value == 'cancelled' ? 'danger' : 'primary'}"/>
+                                </div>
+                                <small class="text-muted"><field name="progress"/>%</small>
+                            </div>
+                        </div>
+                        <div class="o_kanban_card_footer d-flex justify-content-between align-items-center">
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_kanban_task_list" model="ir.ui.view">
+        <field name="name">kanban.task.list</field>
+        <field name="model">kanban.task</field>
+        <field name="arch" type="xml">
+            <list string="Tâches" decoration-success="state == 'done'"
+                  decoration-danger="state == 'cancelled'"
+                  decoration-warning="priority == '1'">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="priority" widget="priority"/>
+                <field name="state"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kanban_task_form" model="ir.ui.view">
+        <field name="name">kanban.task.form</field>
+        <field name="model">kanban.task</field>
+        <field name="arch" type="xml">
+            <form string="Tâche">
+                <header>
+                    <button name="action_set_in_progress" type="object"
+                            string="En cours" class="btn-primary"
+                            invisible="state != 'todo'"/>
+                    <button name="action_set_done" type="object"
+                            string="Terminer" class="btn-primary"
+                            invisible="state not in ['todo', 'in_progress']"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="todo,in_progress,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="user_id"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="progress" widget="progressbar"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                    </group>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="description" placeholder="Description..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_kanban_task_search" model="ir.ui.view">
+        <field name="name">kanban.task.search</field>
+        <field name="model">kanban.task</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="user_id"/>
+                <filter string="Urgent" name="urgent" domain="[('priority', '=', '1')]"/>
+                <filter string="En cours" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Terminé" name="done" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter string="Mes tâches" name="my_tasks" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter string="Grouper par statut" name="group_state" context="{'group_by': 'state'}"/>
+                <filter string="Grouper par priorité" name="group_priority" context="{'group_by': 'priority'}"/>
+                <filter string="Grouper par utilisateur" name="group_user" context="{'group_by': 'user_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_kanban_task" model="ir.actions.act_window">
+        <field name="name">Tâches</field>
+        <field name="res_model">kanban.task</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <menuitem id="menu_kanban_demo_root"
+              name="Kanban Demo"
+              sequence="104"/>
+
+    <menuitem id="menu_kanban_task"
+              name="Tâches"
+              parent="menu_kanban_demo_root"
+              action="action_kanban_task"/>
+
+</odoo>

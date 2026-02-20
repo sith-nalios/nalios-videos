@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="tag_backend" model="kanban.tag">
+        <field name="name">Backend</field>
+        <field name="color">1</field>
+    </record>
+
+    <record id="tag_frontend" model="kanban.tag">
+        <field name="name">Frontend</field>
+        <field name="color">3</field>
+    </record>
+
+    <record id="tag_bug" model="kanban.tag">
+        <field name="name">Bug</field>
+        <field name="color">9</field>
+    </record>
+
+    <record id="task_1" model="kanban.task">
+        <field name="name">Créer le modèle de données</field>
+        <field name="state">done</field>
+        <field name="progress">100</field>
+        <field name="priority">0</field>
+        <field name="color">10</field>
+        <field name="tag_ids" eval="[(4, ref('tag_backend'))]"/>
+    </record>
+
+    <record id="task_2" model="kanban.task">
+        <field name="name">Développer la vue kanban</field>
+        <field name="state">in_progress</field>
+        <field name="progress">60</field>
+        <field name="priority">1</field>
+        <field name="color">4</field>
+        <field name="tag_ids" eval="[(4, ref('tag_frontend'))]"/>
+    </record>
+
+    <record id="task_3" model="kanban.task">
+        <field name="name">Corriger le bug d'affichage</field>
+        <field name="state">todo</field>
+        <field name="progress">0</field>
+        <field name="priority">1</field>
+        <field name="color">9</field>
+        <field name="tag_ids" eval="[(4, ref('tag_bug'))]"/>
+    </record>
+
+    <record id="task_4" model="kanban.task">
+        <field name="name">Écrire les tests unitaires</field>
+        <field name="state">todo</field>
+        <field name="progress">0</field>
+        <field name="priority">0</field>
+        <field name="color">1</field>
+        <field name="tag_ids" eval="[(4, ref('tag_backend'))]"/>
+    </record>
+
+    <record id="task_5" model="kanban.task">
+        <field name="name">Déployer en production</field>
+        <field name="state">cancelled</field>
+        <field name="progress">20</field>
+        <field name="priority">0</field>
+        <field name="color">0</field>
+    </record>
+
+</odoo>

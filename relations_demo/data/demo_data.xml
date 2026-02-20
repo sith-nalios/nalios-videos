@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="comp_python" model="formation.competence">
+        <field name="name">Python</field>
+        <field name="level">advanced</field>
+    </record>
+
+    <record id="comp_odoo" model="formation.competence">
+        <field name="name">Odoo Dev</field>
+        <field name="level">intermediate</field>
+    </record>
+
+    <record id="comp_xml" model="formation.competence">
+        <field name="name">XML / QWeb</field>
+        <field name="level">beginner</field>
+    </record>
+
+    <record id="formation_odoo_19" model="formation">
+        <field name="name">Développement Odoo 19</field>
+        <field name="date_start">2026-03-01</field>
+        <field name="date_end">2026-03-31</field>
+        <field name="competence_ids" eval="[(4, ref('comp_python')), (4, ref('comp_odoo')), (4, ref('comp_xml'))]"/>
+    </record>
+
+    <record id="session_1" model="formation.session">
+        <field name="name">Introduction &amp; structure de module</field>
+        <field name="formation_id" ref="formation_odoo_19"/>
+        <field name="date">2026-03-01</field>
+        <field name="duration">3.0</field>
+    </record>
+
+    <record id="session_2" model="formation.session">
+        <field name="name">Modèles et champs</field>
+        <field name="formation_id" ref="formation_odoo_19"/>
+        <field name="date">2026-03-08</field>
+        <field name="duration">4.0</field>
+    </record>
+
+    <record id="session_3" model="formation.session">
+        <field name="name">Vues et QWeb</field>
+        <field name="formation_id" ref="formation_odoo_19"/>
+        <field name="date">2026-03-15</field>
+        <field name="duration">4.0</field>
+    </record>
+
+</odoo>

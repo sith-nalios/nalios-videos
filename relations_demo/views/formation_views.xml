@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_formation_form" model="ir.ui.view">
+        <field name="name">formation.form</field>
+        <field name="model">formation</field>
+        <field name="arch" type="xml">
+            <form string="Formation">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Titre de la formation..."/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group>
+                            <field name="participant_count"/>
+                            <field name="session_count"/>
+                        </group>
+                    </group>
+
+                    <!-- Many2many avec widget tags -->
+                    <field name="competence_ids" widget="many2many_tags"
+                           options="{'color_field': 'level'}"
+                           placeholder="Ajouter des compétences..."/>
+
+                    <notebook>
+                        <!-- One2many : sessions -->
+                        <page string="Sessions" name="sessions">
+                            <field name="session_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="duration"/>
+                                    <field name="trainer_id"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Many2many : participants -->
+                        <page string="Participants" name="participants">
+                            <field name="participant_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_formation_list" model="ir.ui.view">
+        <field name="name">formation.list</field>
+        <field name="model">formation</field>
+        <field name="arch" type="xml">
+            <list string="Formations">
+                <field name="name"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="participant_count"/>
+                <field name="session_count"/>
+                <field name="competence_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_competence_list" model="ir.ui.view">
+        <field name="name">formation.competence.list</field>
+        <field name="model">formation.competence</field>
+        <field name="arch" type="xml">
+            <list string="Compétences" editable="top">
+                <field name="name"/>
+                <field name="level"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_formation" model="ir.actions.act_window">
+        <field name="name">Formations</field>
+        <field name="res_model">formation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_competence" model="ir.actions.act_window">
+        <field name="name">Compétences</field>
+        <field name="res_model">formation.competence</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_relations_demo_root"
+              name="Relations Demo"
+              sequence="105"/>
+
+    <menuitem id="menu_formation"
+              name="Formations"
+              parent="menu_relations_demo_root"
+              action="action_formation"/>
+
+    <menuitem id="menu_competence"
+              name="Compétences"
+              parent="menu_relations_demo_root"
+              action="action_competence"/>
+
+</odoo>

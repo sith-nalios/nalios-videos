@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_formation_user,formation user,model_formation,base.group_user,1,1,1,1
+access_formation_session_user,formation.session user,model_formation_session,base.group_user,1,1,1,1
+access_formation_competence_user,formation.competence user,model_formation_competence,base.group_user,1,1,1,1
