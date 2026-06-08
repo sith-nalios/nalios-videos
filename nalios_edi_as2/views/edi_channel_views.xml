@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="edi_channel_view_form_as2" model="ir.ui.view">
+        <field name="name">edi.channel.form.as2</field>
+        <field name="model">edi.channel</field>
+        <field name="inherit_id" ref="nalios_edi_connector.edi_channel_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_ftp']" position="after">
+                <group string="AS2" invisible="channel_type != 'as2'">
+                    <group>
+                        <field name="as2_own_id" placeholder="ex: NALIOS"/>
+                        <field name="as2_partner_as2_id" placeholder="ex: PARTNER_ID"/>
+                        <field name="remote_url" placeholder="https://partner.com/as2/receive"/>
+                        <field name="timeout"/>
+                        <field name="webhook_url" string="URL de réception (IN)" widget="CopyClipboardChar"/>
+                    </group>
+                    <group>
+                        <field name="as2_sign"/>
+                        <field name="as2_encrypt"/>
+                        <field name="as2_mdn_mode"/>
+                        <field name="as2_mdn_url" widget="CopyClipboardChar" invisible="as2_mdn_mode != 'ASYNC'"/>
+                    </group>
+                    <group string="Certificats">
+                        <field name="as2_own_cert"/>
+                        <field name="as2_own_key"/>
+                        <field name="as2_own_key_pass" password="True"/>
+                        <field name="as2_partner_cert"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

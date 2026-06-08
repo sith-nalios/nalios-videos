@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vente_001" model="pivot.vente">
+        <field name="name">V-001</field>
+        <field name="date">2026-01-05</field>
+        <field name="vendeur">alice</field>
+        <field name="categorie">informatique</field>
+        <field name="region">nord</field>
+        <field name="quantite">3</field>
+        <field name="prix_unitaire">1200.0</field>
+    </record>
+
+    <record id="vente_002" model="pivot.vente">
+        <field name="name">V-002</field>
+        <field name="date">2026-01-12</field>
+        <field name="vendeur">bob</field>
+        <field name="categorie">mobilier</field>
+        <field name="region">sud</field>
+        <field name="quantite">5</field>
+        <field name="prix_unitaire">450.0</field>
+    </record>
+
+    <record id="vente_003" model="pivot.vente">
+        <field name="name">V-003</field>
+        <field name="date">2026-01-20</field>
+        <field name="vendeur">alice</field>
+        <field name="categorie">fourniture</field>
+        <field name="region">est</field>
+        <field name="quantite">10</field>
+        <field name="prix_unitaire">85.0</field>
+    </record>
+
+    <record id="vente_004" model="pivot.vente">
+        <field name="name">V-004</field>
+        <field name="date">2026-02-03</field>
+        <field name="vendeur">charlie</field>
+        <field name="categorie">informatique</field>
+        <field name="region">ouest</field>
+        <field name="quantite">2</field>
+        <field name="prix_unitaire">2500.0</field>
+    </record>
+
+    <record id="vente_005" model="pivot.vente">
+        <field name="name">V-005</field>
+        <field name="date">2026-02-10</field>
+        <field name="vendeur">bob</field>
+        <field name="categorie">informatique</field>
+        <field name="region">nord</field>
+        <field name="quantite">4</field>
+        <field name="prix_unitaire">980.0</field>
+    </record>
+
+    <record id="vente_006" model="pivot.vente">
+        <field name="name">V-006</field>
+        <field name="date">2026-02-18</field>
+        <field name="vendeur">charlie</field>
+        <field name="categorie">mobilier</field>
+        <field name="region">sud</field>
+        <field name="quantite">2</field>
+        <field name="prix_unitaire">1100.0</field>
+    </record>
+
+    <record id="vente_007" model="pivot.vente">
+        <field name="name">V-007</field>
+        <field name="date">2026-02-25</field>
+        <field name="vendeur">alice</field>
+        <field name="categorie">informatique</field>
+        <field name="region">sud</field>
+        <field name="quantite">1</field>
+        <field name="prix_unitaire">3200.0</field>
+    </record>
+
+    <record id="vente_008" model="pivot.vente">
+        <field name="name">V-008</field>
+        <field name="date">2026-02-27</field>
+        <field name="vendeur">bob</field>
+        <field name="categorie">fourniture</field>
+        <field name="region">est</field>
+        <field name="quantite">20</field>
+        <field name="prix_unitaire">35.0</field>
+    </record>
+
+</odoo>

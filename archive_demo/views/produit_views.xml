@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_archive_produit_form" model="ir.ui.view">
+        <field name="name">archive.produit.form</field>
+        <field name="model">archive.produit</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_archive_if_no_stock" string="Archiver" type="object"
+                            invisible="not active" class="btn-secondary"/>
+                    <button name="action_restore" string="Restaurer" type="object"
+                            invisible="active" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archivé" bg_color="bg-danger"
+                            invisible="active"/>
+                    <group>
+                        <group string="Produit">
+                            <field name="name"/>
+                            <field name="categorie"/>
+                            <field name="prix"/>
+                            <field name="stock"/>
+                        </group>
+                        <group string="Dates">
+                            <field name="date_creation"/>
+                            <field name="date_archivage"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_archive_produit_list" model="ir.ui.view">
+        <field name="name">archive.produit.list</field>
+        <field name="model">archive.produit</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="active == False">
+                <field name="name"/>
+                <field name="categorie"/>
+                <field name="stock"/>
+                <field name="prix"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_archive_produit_search" model="ir.ui.view">
+        <field name="name">archive.produit.search</field>
+        <field name="model">archive.produit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="categorie"/>
+                <filter name="actifs" string="Actifs" domain="[('active', '=', True)]"/>
+                <filter name="archives" string="Archivés" domain="[('active', '=', False)]"/>
+                <filter name="tous" string="Tous" domain="[]" context="{'active_test': False}"/>
+                <separator/>
+                <group>
+                    <filter name="group_categorie" string="Catégorie" context="{'group_by': 'categorie'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_archive_produit" model="ir.actions.act_window">
+        <field name="name">Produits Demo</field>
+        <field name="res_model">archive.produit</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'active_test': True}</field>
+    </record>
+
+    <menuitem id="menu_archive_root" name="Archive Demo" sequence="93"/>
+    <menuitem id="menu_archive_produit" name="Produits" parent="menu_archive_root" action="action_archive_produit"/>
+
+</odoo>

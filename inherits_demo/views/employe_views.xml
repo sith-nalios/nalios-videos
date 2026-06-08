@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Type 1 : Extension de res.partner (champs visibles dans les contacts Odoo) -->
+    <record id="view_res_partner_nalios_form" model="ir.ui.view">
+        <field name="name">res.partner.nalios.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Nalios (Type 1 – Extension)">
+                    <field name="nalios_client_level"/>
+                    <field name="nalios_note"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Type 2 : Contact Presse (prototype de res.partner) -->
+    <record id="view_inherits_presse_form" model="ir.ui.view">
+        <field name="name">inherits.presse.contact.form</field>
+        <field name="model">inherits.presse.contact</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Identité">
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                    </group>
+                    <group string="Presse (Type 2 – Prototype)">
+                        <field name="media"/>
+                        <field name="rubrique"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_inherits_presse_list" model="ir.ui.view">
+        <field name="name">inherits.presse.contact.list</field>
+        <field name="model">inherits.presse.contact</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="media"/>
+                <field name="rubrique"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Type 3 : Employé avec délégation vers res.partner -->
+    <record id="view_inherits_employe_form" model="ir.ui.view">
+        <field name="name">inherits.employe.form</field>
+        <field name="model">inherits.employe</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group string="Identité (champs délégués vers res.partner)">
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                    </group>
+                    <group string="Employé (Type 3 – Délégation)">
+                        <field name="matricule"/>
+                        <field name="poste"/>
+                        <field name="date_embauche"/>
+                        <field name="salaire"/>
+                    </group>
+                    <group string="Lien technique">
+                        <field name="partner_id" readonly="1" invisible="not id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_inherits_employe_list" model="ir.ui.view">
+        <field name="name">inherits.employe.list</field>
+        <field name="model">inherits.employe</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="matricule"/>
+                <field name="poste"/>
+                <field name="salaire"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_inherits_employe" model="ir.actions.act_window">
+        <field name="name">Employés (délégation)</field>
+        <field name="res_model">inherits.employe</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_inherits_presse" model="ir.actions.act_window">
+        <field name="name">Contacts Presse (prototype)</field>
+        <field name="res_model">inherits.presse.contact</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_inherits_root" name="Inherits Demo" sequence="94"/>
+    <menuitem id="menu_inherits_employe" name="Employés (Type 3 – _inherits)" parent="menu_inherits_root" action="action_inherits_employe"/>
+    <menuitem id="menu_inherits_presse" name="Contacts Presse (Type 2 – prototype)" parent="menu_inherits_root" action="action_inherits_presse"/>
+
+</odoo>

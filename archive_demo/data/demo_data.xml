@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="produit_laptop" model="archive.produit">
+        <field name="name">Laptop ProBook</field>
+        <field name="categorie">electronique</field>
+        <field name="stock">15</field>
+        <field name="prix">1299.0</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="produit_clavier" model="archive.produit">
+        <field name="name">Clavier mécanique</field>
+        <field name="categorie">electronique</field>
+        <field name="stock">40</field>
+        <field name="prix">89.0</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="produit_tshirt" model="archive.produit">
+        <field name="name">T-shirt Nalios</field>
+        <field name="categorie">vetement</field>
+        <field name="stock">0</field>
+        <field name="prix">25.0</field>
+        <field name="active">False</field>
+    </record>
+
+    <record id="produit_casque" model="archive.produit">
+        <field name="name">Casque audio</field>
+        <field name="categorie">electronique</field>
+        <field name="stock">8</field>
+        <field name="prix">149.0</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="produit_ancien" model="archive.produit">
+        <field name="name">Disquette 3.5"</field>
+        <field name="categorie">electronique</field>
+        <field name="stock">0</field>
+        <field name="prix">0.5</field>
+        <field name="active">False</field>
+    </record>
+
+</odoo>

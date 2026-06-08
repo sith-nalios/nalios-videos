@@ -1,0 +1,23 @@
+{
+    'name': 'Nalios EDI Connector',
+    'summary': 'Generic EDI file exchange via API/FTP/SFTP with configurable field mapping',
+    'author': 'Nalios',
+    'website': 'https://nalios.be',
+    'license': 'OPL-1',
+    'category': 'Technical',
+    'version': '19.0.1.0.0',
+    'depends': ['base', 'mail', 'base_automation'],
+    'data': [
+        'security/groups.xml',
+        'security/ir.model.access.csv',
+        'data/sequence.xml',
+        'data/cron.xml',
+        'views/edi_channel_views.xml',
+        'views/edi_profile_views.xml',
+        'views/edi_exchange_views.xml',
+        'views/edi_trigger_views.xml',
+'views/menu.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

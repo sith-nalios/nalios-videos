@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inherits_employe,inherits.employe,model_inherits_employe,,1,1,1,1
+access_inherits_presse,inherits.presse.contact,model_inherits_presse_contact,,1,1,1,1

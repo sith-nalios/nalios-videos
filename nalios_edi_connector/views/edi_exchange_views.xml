@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="edi_exchange_view_form" model="ir.ui.view">
+        <field name="name">edi.exchange.form</field>
+        <field name="model">edi.exchange</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_process" type="object" string="Retraiter" class="btn-primary" invisible="state == 'done'"/>
+                    <button name="action_retry" type="object" string="Réessayer" class="btn-warning" invisible="state != 'error'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,done,error"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_processed_records" type="object"
+                                class="oe_stat_button" icon="fa-list"
+                                invisible="record_count == 0">
+                            <field name="record_count" widget="statinfo" string="Records"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="profile_id"/>
+                            <field name="channel_id"/>
+                        </group>
+                        <group>
+                            <field name="direction"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contenu">
+                            <field name="raw_content" widget="ace" options="{'mode': 'xml'}" nolabel="1"/>
+                        </page>
+                        <page string="Erreur" invisible="not error_log">
+                            <field name="error_log" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Records traités" invisible="not processed_ids_json">
+                            <field name="processed_ids_json" nolabel="1" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="edi_exchange_view_list" model="ir.ui.view">
+        <field name="name">edi.exchange.list</field>
+        <field name="model">edi.exchange</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'done'" decoration-danger="state == 'error'" decoration-muted="state == 'pending'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="profile_id"/>
+                <field name="channel_id"/>
+                <field name="direction"/>
+                <field name="record_count"/>
+                <field name="state" widget="badge" decoration-success="state == 'done'" decoration-danger="state == 'error'" decoration-warning="state == 'pending'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="edi_exchange_view_search" model="ir.ui.view">
+        <field name="name">edi.exchange.search</field>
+        <field name="model">edi.exchange</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="profile_id"/>
+                <field name="channel_id"/>
+                <filter string="Erreurs" name="errors" domain="[('state', '=', 'error')]"/>
+                <filter string="Succès" name="done" domain="[('state', '=', 'done')]"/>
+                <filter string="En attente" name="pending" domain="[('state', '=', 'pending')]"/>
+                <filter string="Aujourd'hui" name="today" domain="[('date', '>=', 'today')]"/>
+                <filter string="Entrant" name="in" domain="[('direction', '=', 'in')]"/>
+                <filter string="Sortant" name="out" domain="[('direction', '=', 'out')]"/>
+                <group>
+                    <filter string="Profil" name="group_profile" context="{'group_by': 'profile_id'}"/>
+                    <filter string="Canal" name="group_channel" context="{'group_by': 'channel_id'}"/>
+                    <filter string="État" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Direction" name="group_direction" context="{'group_by': 'direction'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="edi_exchange_view_graph" model="ir.ui.view">
+        <field name="name">edi.exchange.graph</field>
+        <field name="model">edi.exchange</field>
+        <field name="arch" type="xml">
+            <graph string="Échanges EDI" type="bar">
+                <field name="date" interval="day"/>
+                <field name="state"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="edi_exchange_view_pivot" model="ir.ui.view">
+        <field name="name">edi.exchange.pivot</field>
+        <field name="model">edi.exchange</field>
+        <field name="arch" type="xml">
+            <pivot string="Échanges EDI">
+                <field name="profile_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="record_count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_edi_exchange" model="ir.actions.act_window">
+        <field name="name">Échanges EDI</field>
+        <field name="res_model">edi.exchange</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="edi_exchange_view_search"/>
+    </record>
+
+</odoo>

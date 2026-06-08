@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_edi_root" name="EDI" sequence="80" web_icon="nalios_edi_connector,static/description/icon.png"/>
+
+<menuitem id="menu_edi_exchanges" name="Échanges" parent="menu_edi_root" action="action_edi_exchange" sequence="10"/>
+    <menuitem id="menu_edi_config" name="Configuration" parent="menu_edi_root" sequence="90"/>
+    <menuitem id="menu_edi_triggers" name="Déclencheurs" parent="menu_edi_root" action="action_edi_trigger" sequence="20"/>
+    <menuitem id="menu_edi_profiles" name="Profils" parent="menu_edi_config" action="action_edi_profile" sequence="10"/>
+    <menuitem id="menu_edi_channels" name="Canaux" parent="menu_edi_config" action="action_edi_channel" sequence="20"/>
+
+</odoo>

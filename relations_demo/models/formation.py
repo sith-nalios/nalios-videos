@@ -21,6 +21,7 @@ class Formation(models.Model):
         'formation.session',
         'formation_id',
         string='Sessions',
+        ondelete='cascade',
     )
     session_count = fields.Integer(
         string='Nombre de sessions',

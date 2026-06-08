@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_pivot_vente_list" model="ir.ui.view">
+        <field name="name">pivot.vente.list</field>
+        <field name="model">pivot.vente</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="vendeur"/>
+                <field name="categorie"/>
+                <field name="region"/>
+                <field name="quantite"/>
+                <field name="prix_unitaire"/>
+                <field name="montant_total"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_pivot_vente_form" model="ir.ui.view">
+        <field name="name">pivot.vente.form</field>
+        <field name="model">pivot.vente</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="vendeur"/>
+                        </group>
+                        <group>
+                            <field name="categorie"/>
+                            <field name="region"/>
+                            <field name="quantite"/>
+                            <field name="prix_unitaire"/>
+                            <field name="montant_total"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_pivot_vente_pivot" model="ir.ui.view">
+        <field name="name">pivot.vente.pivot</field>
+        <field name="model">pivot.vente</field>
+        <field name="arch" type="xml">
+            <pivot string="Analyse des ventes">
+                <field name="vendeur" type="row"/>
+                <field name="categorie" type="col"/>
+                <field name="montant_total" type="measure"/>
+                <field name="quantite" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_pivot_vente_graph" model="ir.ui.view">
+        <field name="name">pivot.vente.graph</field>
+        <field name="model">pivot.vente</field>
+        <field name="arch" type="xml">
+            <graph string="Ventes par vendeur" type="bar">
+                <field name="vendeur" type="row"/>
+                <field name="montant_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_pivot_vente_search" model="ir.ui.view">
+        <field name="name">pivot.vente.search</field>
+        <field name="model">pivot.vente</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="vendeur"/>
+                <field name="categorie"/>
+                <field name="region"/>
+                <filter name="filter_nord" string="Nord" domain="[('region', '=', 'nord')]"/>
+                <filter name="filter_sud" string="Sud" domain="[('region', '=', 'sud')]"/>
+                <separator/>
+                <group>
+                    <filter name="group_vendeur" string="Vendeur" context="{'group_by': 'vendeur'}"/>
+                    <filter name="group_categorie" string="Catégorie" context="{'group_by': 'categorie'}"/>
+                    <filter name="group_region" string="Région" context="{'group_by': 'region'}"/>
+                    <filter name="group_date" string="Date" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_pivot_vente" model="ir.actions.act_window">
+        <field name="name">Ventes Demo</field>
+        <field name="res_model">pivot.vente</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+    </record>
+
+    <menuitem id="menu_pivot_root" name="Pivot Demo" sequence="92"/>
+    <menuitem id="menu_pivot_vente" name="Ventes" parent="menu_pivot_root" action="action_pivot_vente"/>
+
+</odoo>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="edi_profile_view_form" model="ir.ui.view">
+        <field name="name">edi.profile.form</field>
+        <field name="model">edi.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_exchanges" type="object" class="oe_stat_button" icon="fa-exchange">
+                            <field name="exchange_count" widget="statinfo" string="Échanges"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archivé" bg_color="bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="format"/>
+                            <field name="direction"/>
+                        </group>
+                        <group>
+                            <field name="model_id"/>
+                            <field name="channel_id"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Configuration">
+                            <group>
+                                <field name="xml_root_tag" placeholder="ex: Orders ou clé JSON racine (optionnel)"/>
+                                <field name="xml_record_tag" placeholder="ex: Order ou clé JSON enregistrement"/>
+                                <field name="batch_size" placeholder="0 = pas de limite"/>
+                            </group>
+                        </page>
+                        <page string="Mappings de champs">
+                            <field name="field_mapping_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="source_path" placeholder="ex: Header/RefCmd ou @attribut"/>
+                                    <field name="odoo_field_id" domain="[('model_id', '=', parent.model_id), ('ttype', 'not in', ['one2many', 'many2many', 'binary'])]"/>
+                                    <field name="transformer"/>
+                                    <field name="transform_code" optional="show" invisible="transformer != 'python'" placeholder="value.strip()"/>
+                                    <field name="m2o_search_field" optional="show" invisible="transformer not in ('m2o_name', 'm2o_ref')" placeholder="name"/>
+                                    <field name="default_value" optional="show"/>
+                                    <field name="is_key"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Règles d'action">
+                            <field name="action_rule_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="action_type"/>
+                                    <field name="method_name" optional="show" invisible="action_type != 'call_method'" placeholder="action_confirm"/>
+                                    <field name="condition_code" optional="show" placeholder="values.get('state') == 'done'"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="edi_profile_view_list" model="ir.ui.view">
+        <field name="name">edi.profile.list</field>
+        <field name="model">edi.profile</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="format"/>
+                <field name="direction"/>
+                <field name="model_id"/>
+                <field name="channel_id"/>
+                <field name="exchange_count"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_edi_profile" model="ir.actions.act_window">
+        <field name="name">Profils EDI</field>
+        <field name="res_model">edi.profile</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_email_commande_form" model="ir.ui.view">
+        <field name="name">email.commande.form</field>
+        <field name="model">email.commande</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" string="Confirmer" type="object"
+                            invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_send_confirmation_email" string="Envoyer email (template)" type="object"
+                            invisible="state not in ['confirmed', 'sent']" class="btn-primary"/>
+                    <button name="action_send_email_simple" string="Envoyer email (simple)" type="object"
+                            invisible="state not in ['confirmed', 'sent']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Commande">
+                            <field name="name"/>
+                            <field name="montant"/>
+                            <field name="date_confirmation"/>
+                        </group>
+                        <group string="Client">
+                            <field name="client_name"/>
+                            <field name="client_email"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_email_commande_list" model="ir.ui.view">
+        <field name="name">email.commande.list</field>
+        <field name="model">email.commande</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="client_name"/>
+                <field name="client_email"/>
+                <field name="montant"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_email_commande" model="ir.actions.act_window">
+        <field name="name">Commandes Demo</field>
+        <field name="res_model">email.commande</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_email_root" name="Email Demo" sequence="91"/>
+    <menuitem id="menu_email_commande" name="Commandes" parent="menu_email_root" action="action_email_commande"/>
+
+</odoo>

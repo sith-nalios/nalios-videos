@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mail_template_commande_confirmation" model="mail.template">
+        <field name="name">Commande – Confirmation</field>
+        <field name="model_id" ref="model_email_commande"/>
+        <field name="subject">Confirmation de votre commande {{ object.name }}</field>
+        <field name="email_to">{{ object.client_email }}</field>
+        <field name="body_html" type="html">
+<div>
+    <p>Bonjour <b><t t-out="object.client_name or ''">Client</t></b>,</p>
+    <p>Nous avons le plaisir de vous confirmer votre commande <b><t t-out="object.name or ''">REF</t></b>.</p>
+    <table>
+        <tr><td><b>Montant :</b></td><td><t t-out="object.montant or 0">0</t> €</td></tr>
+        <tr><td><b>Date de confirmation :</b></td><td><t t-out="object.date_confirmation or ''">-</t></td></tr>
+    </table>
+    <p>Merci pour votre confiance.</p>
+    <p>L'équipe Nalios</p>
+</div>
+        </field>
+        <field name="auto_delete">True</field>
+    </record>
+
+</odoo>

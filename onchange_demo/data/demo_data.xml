@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="devis_particulier" model="onchange.devis">
+        <field name="name">DEV-001</field>
+        <field name="client_type">particulier</field>
+        <field name="montant_ht">1000.0</field>
+        <field name="tva">20.0</field>
+        <field name="remise">0.0</field>
+    </record>
+
+    <record id="devis_pro" model="onchange.devis">
+        <field name="name">DEV-002</field>
+        <field name="client_type">professionnel</field>
+        <field name="montant_ht">5000.0</field>
+        <field name="tva">20.0</field>
+        <field name="remise">10.0</field>
+    </record>
+
+    <record id="devis_vip" model="onchange.devis">
+        <field name="name">DEV-003</field>
+        <field name="client_type">vip</field>
+        <field name="montant_ht">10000.0</field>
+        <field name="tva">20.0</field>
+        <field name="remise">20.0</field>
+    </record>
+
+</odoo>

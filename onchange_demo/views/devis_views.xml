@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_onchange_devis_form" model="ir.ui.view">
+        <field name="name">onchange.devis.form</field>
+        <field name="model">onchange.devis</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Informations">
+                            <field name="name"/>
+                            <field name="client_type"/>
+                            <field name="remise"/>
+                        </group>
+                        <group string="Montants">
+                            <field name="montant_ht"/>
+                            <field name="tva"/>
+                            <field name="montant_ttc"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="warning_message" invisible="not warning_message"/>
+                    </group>
+                    <group>
+                        <field name="note" placeholder="Note interne..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_onchange_devis_list" model="ir.ui.view">
+        <field name="name">onchange.devis.list</field>
+        <field name="model">onchange.devis</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="client_type"/>
+                <field name="remise"/>
+                <field name="montant_ht"/>
+                <field name="montant_ttc"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_onchange_devis" model="ir.actions.act_window">
+        <field name="name">Devis Demo</field>
+        <field name="res_model">onchange.devis</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_onchange_root" name="Onchange Demo" sequence="90"/>
+    <menuitem id="menu_onchange_devis" name="Devis" parent="menu_onchange_root" action="action_onchange_devis"/>
+
+</odoo>
